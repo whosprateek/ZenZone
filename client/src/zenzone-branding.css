@@ -1,0 +1,302 @@
+/* ZenZone Branding Styles */
+
+/* Home Page Branding */
+.brand-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.zen-logo-home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.zen-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  animation: zen-pulse 3s ease-in-out infinite;
+}
+
+.zen-icon {
+  font-size: 2rem;
+  color: white;
+  animation: zen-rotate 8s linear infinite;
+}
+
+.brand-name-home {
+  font-size: 3.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0;
+}
+
+.brand-badges {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  animation: badge-float 2s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+.badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.badge-premium {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+  color: #2d3436;
+  animation-delay: 0s;
+}
+
+.badge-ai {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  color: white;
+  animation-delay: 0.5s;
+}
+
+.badge-24-7 {
+  background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+  color: white;
+  animation-delay: 1s;
+}
+
+/* AI Chatbot Branding */
+.zen-branding {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.zen-branding h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.zen-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+  animation: zen-glow 2s ease-in-out infinite alternate;
+}
+
+/* Assessment Branding */
+.zen-assessment-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.zen-assess-icon {
+  font-size: 2.5rem;
+  color: #667eea;
+  animation: zen-rotate 10s linear infinite;
+  filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.3));
+}
+
+.assessment-badges {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.assess-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Animations */
+@keyframes zen-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+  }
+}
+
+@keyframes zen-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes badge-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes zen-glow {
+  from {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+  }
+  to {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 15px rgba(102, 126, 234, 0.5);
+  }
+}
+
+/* Enhanced brand elements */
+.text-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .brand-name-home {
+    font-size: 2.5rem;
+  }
+  
+  .zen-logo-home {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .zen-icon-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .zen-icon {
+    font-size: 1.5rem;
+  }
+  
+  .brand-badges {
+    gap: 0.5rem;
+  }
+  
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .zen-assessment-brand {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .zen-assess-icon {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-name-home {
+    font-size: 2rem;
+  }
+  
+  .assessment-badges {
+    justify-content: center;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .zen-icon-wrapper {
+    background: #000;
+    border: 2px solid #fff;
+  }
+  
+  .brand-name-home {
+    -webkit-text-fill-color: initial;
+    color: #000;
+  }
+  
+  .badge {
+    border: 2px solid #000;
+  }
+}
+
+/* Reduced motion support */
+/* College info styling */
+.college-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.college-info i {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zen-icon,
+  .zen-assess-icon {
+    animation: none;
+  }
+  
+  .zen-pulse,
+  .badge-float,
+  .zen-glow {
+    animation: none;
+  }
+}

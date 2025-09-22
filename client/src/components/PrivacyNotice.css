@@ -1,0 +1,508 @@
+/* Privacy Notice Modal Styles */
+.privacy-notice-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.privacy-notice-modal {
+  background: var(--bg-color);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  max-width: 700px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  border: 1px solid var(--border-color);
+  animation: slideUp 0.4s ease-out;
+}
+
+/* Header Styles */
+.privacy-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  text-align: center;
+  color: white;
+  border-radius: 16px 16px 0 0;
+}
+
+.privacy-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.privacy-shield {
+  font-size: 3rem;
+  color: #fff;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.privacy-header h3 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.privacy-subtitle {
+  margin: 0.5rem 0 0 0;
+  font-size: 1rem;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+/* Privacy Tabs */
+.privacy-tabs {
+  display: flex;
+  padding: 0;
+  background: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.privacy-tab {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 3px solid transparent;
+  font-size: 0.9rem;
+}
+
+.privacy-tab i {
+  font-size: 1.2rem;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.privacy-tab:hover {
+  background: var(--hover-color);
+}
+
+.privacy-tab.active {
+  color: #667eea;
+  border-bottom-color: #667eea;
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.privacy-tab.active i {
+  opacity: 1;
+  color: #667eea;
+}
+
+/* Privacy Content */
+.privacy-content {
+  padding: 2rem;
+  min-height: 200px;
+}
+
+.privacy-feature {
+  animation: fadeInContent 0.3s ease-out;
+}
+
+.feature-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.feature-header i {
+  font-size: 1.5rem;
+  color: #667eea;
+}
+
+.feature-header h4 {
+  margin: 0;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+}
+
+.feature-check {
+  color: #28a745;
+  font-size: 1.1rem;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+}
+
+.feature-item span {
+  color: var(--text-color);
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+/* Student Anonymity Notice */
+.student-anonymity-notice {
+  margin: 1rem 2rem;
+  padding: 0;
+}
+
+.anonymity-card {
+  background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
+  border: 2px solid #667eea30;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.anonymity-icon {
+  background: #667eea;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.anonymity-content h5 {
+  margin: 0 0 0.75rem 0;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.anonymity-content p {
+  margin: 0 0 1rem 0;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+.anonymous-example {
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.anonymity-benefits {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.benefit-badge {
+  background: #28a745;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.benefit-badge i {
+  font-size: 0.9rem;
+}
+
+/* Psychiatrist Notice */
+.psychiatrist-notice {
+  margin: 1rem 2rem;
+  padding: 0;
+}
+
+.professional-card {
+  background: linear-gradient(135deg, #17a2b820 0%, #1e3c7220 100%);
+  border: 2px solid #17a2b830;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.professional-icon {
+  background: #17a2b8;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.professional-content h5 {
+  margin: 0 0 0.75rem 0;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.professional-content p {
+  margin: 0 0 1rem 0;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+.professional-guidelines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.guideline-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.guideline-item i {
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* Privacy Commitment */
+.privacy-commitment {
+  background: var(--card-bg);
+  margin: 1rem 2rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.privacy-commitment h5 {
+  margin: 0 0 1rem 0;
+  color: var(--text-color);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.commitment-heart {
+  color: #e74c3c;
+  font-size: 1.1rem;
+}
+
+.privacy-commitment p {
+  margin: 0;
+  color: var(--text-color);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Action Buttons */
+.privacy-actions {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  background: var(--card-bg);
+  border-top: 1px solid var(--border-color);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.privacy-decline {
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  background: transparent;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.privacy-decline:hover {
+  background: #dc3545;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.privacy-accept {
+  background: #667eea;
+  border: 1px solid #667eea;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.privacy-accept:hover {
+  background: #5a67d8;
+  border-color: #5a67d8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* Privacy Footer */
+.privacy-footer {
+  padding: 1rem 2rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--hover-color);
+  text-align: center;
+  border-radius: 0 0 16px 16px;
+}
+
+.privacy-footer p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.privacy-footer i {
+  color: #667eea;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeInContent {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .privacy-notice-overlay {
+    padding: 0.5rem;
+  }
+  
+  .privacy-notice-modal {
+    max-height: 95vh;
+  }
+  
+  .privacy-header {
+    padding: 1.5rem 1rem;
+  }
+  
+  .privacy-header h3 {
+    font-size: 1.5rem;
+  }
+  
+  .privacy-tabs {
+    flex-direction: column;
+  }
+  
+  .privacy-tab {
+    flex-direction: row;
+    justify-content: center;
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+    border-right: none;
+  }
+  
+  .privacy-tab.active {
+    border-bottom-color: #667eea;
+    border-left: 3px solid #667eea;
+  }
+  
+  .privacy-content {
+    padding: 1.5rem 1rem;
+  }
+  
+  .anonymity-card,
+  .professional-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .anonymity-benefits {
+    justify-content: center;
+  }
+  
+  .privacy-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .privacy-actions button {
+    width: 100%;
+  }
+}
+
+/* Dark theme specific adjustments */
+:root[data-theme="dark"] .privacy-notice-modal {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme="dark"] .feature-item:hover {
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+:root[data-theme="dark"] .privacy-accept:hover {
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
