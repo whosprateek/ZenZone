@@ -1,0 +1,98 @@
+/* Psychiatrist Dashboard overlay fix and responsive messaging container */
+
+.messaging-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* prevent body scroll bleed */
+}
+
+.messaging-overlay-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.btn-close-messaging {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--hover-color);
+  color: var(--text-color);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+.messaging-patient-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.patient-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--hover-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.messaging-content {
+  flex: 1;
+  min-height: 0; /* allow child to size */
+  overflow: hidden; /* let inner messages scroll, not the shell */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure chat fits viewport inside overlay and is scrollable on medium screens */
+.messaging-content .modern-chat-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 0 !important;
+  height: 100% !important; /* fill overlay content */
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Size presets inside overlay: allow visible resize via header controls */
+.messaging-content .modern-chat-container.small { height: 60vh !important; }
+.messaging-content .modern-chat-container.medium { height: 80vh !important; }
+.messaging-content .modern-chat-container.large { height: 92vh !important; }
+
+/* Make chat messages area fill and scroll in overlay */
+.messaging-content .chat-messages {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* Resize buttons control internal scroll area heights without leaving empty space */
+.messaging-content .modern-chat-container.small .chat-messages { max-height: 60vh; }
+.messaging-content .modern-chat-container.medium .chat-messages { max-height: 80vh; }
+.messaging-content .modern-chat-container.large .chat-messages { max-height: none; }
+
+/* Hard alignment overrides to ensure left/right in overlay */
+.messaging-content .messages-list .message-wrapper.other { justify-content: flex-start !important; }
+.messaging-content .messages-list .message-wrapper.own { justify-content: flex-end !important; }
+
+@media (max-width: 992px) {
+  .messaging-overlay-header {
+    padding: 10px 12px;
+  }
+  .btn-close-messaging {
+    padding: 6px 8px;
+  }
+}

@@ -1,0 +1,118 @@
+/* ========================================== */
+/* Enhanced Floating Chat Launcher Styles */
+/* ========================================== */
+
+.floating-chat-launcher {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  width: 70px;
+  height: 70px;
+  background: var(--gradient-primary);
+  border: none;
+  border-radius: 50%;
+  color: white !important;
+  font-size: 1.75rem;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+  transition: all var(--transition-normal);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: float-bounce 3s ease-in-out infinite;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.floating-chat-launcher::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse-ring 2s infinite;
+  z-index: -1;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+  }
+}
+
+.floating-chat-launcher:hover {
+  transform: translateY(-8px) scale(1.1);
+  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+  animation-play-state: paused;
+}
+
+.floating-chat-launcher:active {
+  transform: translateY(-6px) scale(1.05);
+}
+
+/* Floating animation */
+@keyframes float-bounce {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Icon animation */
+.floating-chat-launcher i {
+  animation: icon-pulse 2s ease-in-out infinite;
+  transition: all var(--transition-fast);
+}
+
+.floating-chat-launcher:hover i {
+  animation: icon-wiggle 0.5s ease-in-out;
+}
+
+@keyframes icon-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes icon-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .floating-chat-launcher {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-chat-launcher {
+    bottom: 1rem;
+    right: 1rem;
+    width: 55px;
+    height: 55px;
+    font-size: 1.25rem;
+  }
+}
