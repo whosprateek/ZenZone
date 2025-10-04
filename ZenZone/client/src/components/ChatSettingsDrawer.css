@@ -1,0 +1,37 @@
+/* Chat Settings Drawer */
+.chat-settings-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(380px, 92vw);
+  background: var(--card-bg);
+  color: var(--text-color);
+  border-left: 1px solid var(--border-color);
+  box-shadow: -8px 0 24px rgba(0,0,0,0.15);
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.cs-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border-color); }
+.cs-header h3 { margin: 0; font-size: 1.1rem; font-weight: 600; }
+.cs-close { background: none; border: 1px solid var(--border-color); color: var(--text-color); border-radius: 8px; padding: 6px 10px; cursor: pointer; }
+
+.cs-section { padding: 16px 20px; border-bottom: 1px solid var(--border-color); }
+.cs-section h4 { margin: 0 0 12px 0; font-size: 0.95rem; font-weight: 700; }
+.cs-hint { font-size: 0.85rem; color: var(--text-muted); margin-top: 6px; }
+
+.cs-toggle { display: flex; align-items: center; gap: 10px; margin: 8px 0; cursor: pointer; }
+.cs-toggle input { display: none; }
+.cs-slider { width: 40px; height: 22px; background: var(--border-color); border-radius: 9999px; position: relative; transition: all 0.2s ease; }
+.cs-slider::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: var(--card-bg); border-radius: 50%; box-shadow: 0 1px 2px rgba(0,0,0,0.2); transition: all 0.2s ease; }
+.cs-toggle input:checked + .cs-slider { background: #6366f1; }
+.cs-toggle input:checked + .cs-slider::after { transform: translateX(18px); background: #fff; }
+.cs-label { font-size: 0.95rem; }
