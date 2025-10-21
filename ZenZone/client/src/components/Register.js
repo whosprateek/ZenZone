@@ -14,50 +14,10 @@ function Register() {
   // Delhi Colleges and Universities
   const delhiColleges = [
     'Delhi University (DU)',
-    'Jawaharlal Nehru University (JNU)',
     'Indian Institute of Technology Delhi (IIT Delhi)',
-    'All India Institute of Medical Sciences (AIIMS Delhi)',
-    'Indraprastha Institute of Information Technology (IIIT Delhi)',
     'Delhi Technological University (DTU)',
     'Netaji Subhas University of Technology (NSUT)',
-    'Jamia Millia Islamia',
     'Guru Gobind Singh Indraprastha University (GGSIPU)',
-    'Ambedkar University Delhi (AUD)',
-    'National Law University Delhi (NLUD)',
-    'Lady Shri Ram College for Women (LSR)',
-    "St. Stephen's College",
-    'Hindu College',
-    'Hansraj College',
-    'Ramjas College',
-    'Sri Venkateswara College',
-    'Gargi College',
-    'Jesus and Mary College',
-    'Miranda House',
-    'Shri Ram College of Commerce (SRCC)',
-    'Shaheed Sukhdev College of Business Studies',
-    'Bharati College',
-    'Daulat Ram College',
-    'Kirori Mal College',
-    'Zakir Husain Delhi College',
-    'Deshbandhu College',
-    'Keshav Mahavidyalaya',
-    'Maharaja Agrasen College',
-    'Motilal Nehru College',
-    'P.G.D.A.V. College',
-    'Rajdhani College',
-    'Satyawati College',
-    'Swami Shraddhanand College',
-    'Vivekananda College',
-    'Amity University Delhi',
-    'Lovely Professional University Delhi Campus',
-    'Bharati Vidyapeeth University Delhi',
-    'Sharda University',
-    'Bennett University',
-    'O.P. Jindal Global University',
-    'The Northcap University',
-    "Lingaya's Vidyapeeth",
-    'Manav Rachna University',
-    'Other Delhi College/University'
   ];
 
   const handleChange = (e) => {
@@ -303,7 +263,7 @@ function Register() {
                     disabled={loading}
                   >
                     <option value="student">Student</option>
-                    <option value="psychiatrist">Psychiatrist</option>
+                 
                   </select>
                   <span className="field-caret bi bi-chevron-down" aria-hidden="true"></span>
                 </div>
@@ -365,3 +325,4 @@ function Register() {
 }
 
 export default Register;
+
