@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Mental Health Support for Students" />
+    <!-- Inject API base at runtime via CRA HTML env -->
+    <meta name="api-base" content="%REACT_APP_API_BASE_URL%" />
+    <script>
+      (function(){
+        try {
+          var m = document.querySelector('meta[name="api-base"]');
+          var v = m && m.getAttribute('content');
+          if (v && v !== '%REACT_APP_API_BASE_URL%') { window.API_BASE_URL = v; }
+        } catch (e) {}
+      })();
+    </script>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>ZenZone</title>
