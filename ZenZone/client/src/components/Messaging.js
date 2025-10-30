@@ -19,6 +19,7 @@ function Messaging({ appointmentId, inOverlay = false, canSend: canSendProp = un
   const [isTyping, setIsTyping] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState('disconnected');
   const [lastSeen, setLastSeen] = useState(null);
+  const [peerOnline, setPeerOnline] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [attachments, setAttachments] = useState([]);
   const [uploading, setUploading] = useState(false);
@@ -189,12 +190,15 @@ const [chatSize, setChatSize] = useState(inOverlay ? 'large' : 'medium'); // sma
 
     socketRef.current.on('disconnect', () => {
       setConnectionStatus('disconnected');
+      setPeerOnline(false);
     });
 
     // Join room for real-time messaging
     const joinUserId = myId || userIdLS || '';
     if (appointmentId && joinUserId) {
       socketRef.current.emit('joinRoom', { appointmentId, userId: joinUserId });
+      // Ask server for current presence state in the room
+      socketRef.current.emit('presencePing', { appointmentId });
     }
 
     // Message handlers
@@ -284,6 +288,15 @@ const [chatSize, setChatSize] = useState(inOverlay ? 'large' : 'medium'); // sma
           }
         }
       }, 100);
+    });
+
+    // Presence updates
+    socketRef.current.on('peerOnline', ({ userId: peerId, online, timestamp }) => {
+      const me = myId || userIdLS;
+      if (String(peerId) !== String(me)) {
+        setPeerOnline(Boolean(online));
+        if (!online && timestamp) setLastSeen(new Date(timestamp));
+      }
     });
 
     // Typing indicators
@@ -691,17 +704,15 @@ const doClearChat = () => {
               ); } catch { return null; } })()}
             </h3>
             <div className="recipient-status">
-              {connectionStatus === 'connected' ? (
-                <>
-                  <span className={`status-indicator ${connectionStatus}`}></span>
-                  <span className="status-text">
-                    {lastSeen ? `Last seen ${formatMessageTime(lastSeen)}` : 'Online'}
-                  </span>
-                </>
-              ) : (
+              {connectionStatus !== 'connected' ? (
                 <>
                   <span className="status-indicator disconnected"></span>
                   <span className="status-text">Connecting...</span>
+                </>
+              ) : (
+                <>
+                  <span className={`status-indicator ${peerOnline ? 'connected' : 'disconnected'}`}></span>
+                  <span className="status-text">{peerOnline ? 'Online' : (lastSeen ? `Last seen ${formatMessageTime(lastSeen)}` : 'Offline')}</span>
                 </>
               )}
             </div>

@@ -103,9 +103,27 @@ io.on('connection', (socket) => {
 
   socket.on('joinRoom', ({ appointmentId, userId }) => {
     if (appointmentId && userId) {
+      // Join user-specific room and the shared appointment room
       socket.join(`${appointmentId}-${userId}`);
-      console.log(`User ${userId} joined room ${appointmentId}-${userId}`);
+      socket.join(`${appointmentId}`);
+      // Track rooms for presence teardown
+      socket.data.roomsJoined = socket.data.roomsJoined || [];
+      socket.data.roomsJoined.push({ appointmentId, userId });
+      // Notify peers in appointment that this user is online (not the sender)
+      socket.to(`${appointmentId}`).emit('peerOnline', { userId, online: true, timestamp: Date.now() });
+      console.log(`User ${userId} joined rooms: ${appointmentId}-${userId} and ${appointmentId}`);
     }
+  });
+
+  // Presence query: requester wants to know if any peer is in the appointment room
+  socket.on('presencePing', ({ appointmentId }) => {
+    try {
+      const room = io.sockets.adapter.rooms.get(`${appointmentId}`);
+      const count = room ? room.size : 0;
+      // If there is any other socket in the shared room besides this one, report online
+      const othersOnline = count > 1 || (count === 1 && !socket.rooms.has(`${appointmentId}`));
+      socket.emit('peerOnline', { userId: 'peer', online: Boolean(othersOnline) });
+    } catch {}
   });
 
   socket.on('sendMessage', (message) => {
@@ -118,6 +136,13 @@ io.on('connection', (socket) => {
         .to(`${appointmentId}`)
         .emit('receiveMessage', message);
     }
+  });
+
+  socket.on('disconnecting', () => {
+    const joined = socket.data?.roomsJoined || [];
+    joined.forEach(({ appointmentId, userId }) => {
+      socket.to(`${appointmentId}`).emit('peerOnline', { userId, online: false, timestamp: Date.now() });
+    });
   });
 
   socket.on('disconnect', () => {
