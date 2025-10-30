@@ -763,5 +763,3 @@ Crisis Resources:
 
 export default PersonalizedAssessment;
 
->>>>>>> 51afcdf4 (fix(client): prevent localhost API base leaking in prod; use shared api client in PersonalizedAssessment to avoid ERR_CONNECTION_REFUSED on psychiatrist dashboard):client/src/components/PersonalizedAssessment.js
-export default PersonalizedAssessment;
