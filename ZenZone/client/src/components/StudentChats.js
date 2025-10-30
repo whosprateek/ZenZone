@@ -45,7 +45,10 @@ function StudentChats() {
       }
     };
     fetchAppointments();
+    // poll for status/updates so new approvals open without manual refresh
+    const id = setInterval(fetchAppointments, 5000);
     return () => {
+      clearInterval(id);
       window.removeEventListener('chatPrefsChanged', onPrefs);
     };
   }, []);
@@ -183,7 +186,7 @@ function StudentChats() {
       <main className="chat-main">
         {error && <div className="alert alert-danger m-3">{error}</div>}
         {selected ? (
-          <Messaging appointmentId={selected._id} />
+          <Messaging appointmentId={selected._id} canSend={selected.status === 'approved'} />
         ) : (
           <div className="empty-main">Select a psychiatrist on the left to start messaging.</div>
         )}

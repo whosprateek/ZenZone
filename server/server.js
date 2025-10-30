@@ -111,7 +111,12 @@ io.on('connection', (socket) => {
   socket.on('sendMessage', (message) => {
     const { appointmentId, senderId, recipientId } = message || {};
     if (appointmentId && senderId && recipientId) {
-      io.to(`${appointmentId}-${senderId}`).to(`${appointmentId}-${recipientId}`).emit('receiveMessage', message);
+      // Emit to both user-specific rooms and the shared appointment room.
+      io
+        .to(`${appointmentId}-${senderId}`)
+        .to(`${appointmentId}-${recipientId}`)
+        .to(`${appointmentId}`)
+        .emit('receiveMessage', message);
     }
   });
 

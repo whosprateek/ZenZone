@@ -63,7 +63,8 @@ const [archived, setArchived] = useState({});
       }
     };
     fetchAppointments();
-    return () => window.removeEventListener('chatPrefsChanged', onPrefs);
+    const id = setInterval(fetchAppointments, 5000);
+    return () => { window.removeEventListener('chatPrefsChanged', onPrefs); clearInterval(id); };
   }, []);
 
   useEffect(() => {
@@ -264,7 +265,7 @@ const [archived, setArchived] = useState({});
       <main className="chat-main">
         {error && <div className="alert alert-danger m-3">{error}</div>}
         {selectedAppointment ? (
-          <Messaging appointmentId={selectedAppointment._id} />
+          <Messaging appointmentId={selectedAppointment._id} canSend={selectedAppointment.status === 'approved'} />
         ) : (
           <div className="empty-main">Select a student on the left to start messaging.</div>
         )}

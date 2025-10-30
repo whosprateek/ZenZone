@@ -7,7 +7,7 @@ import './Messaging.css';
 import { generateDeterministicDisplayName } from '../utils/anonymity';
 import ChatSettingsDrawer from './ChatSettingsDrawer.jsx';
 
-function Messaging({ appointmentId, inOverlay = false }) {
+function Messaging({ appointmentId, inOverlay = false, canSend: canSendProp = undefined }) {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [error, setError] = useState('');
@@ -54,6 +54,7 @@ const [chatSize, setChatSize] = useState(inOverlay ? 'large' : 'medium'); // sma
   const [unreadCount, setUnreadCount] = useState(0);
   const [activeAppointmentId, setActiveAppointmentId] = useState(appointmentId || null);
   const [firstUnreadIndex, setFirstUnreadIndex] = useState(null);
+  const [appointmentStatus, setAppointmentStatus] = useState('approved');
 
   // Auto-scroll to bottom when new messages arrive
   const scrollToBottom = () => {
@@ -316,6 +317,22 @@ const [chatSize, setChatSize] = useState(inOverlay ? 'large' : 'medium'); // sma
     if (!s || !s.connected || !appt || !id) return;
     s.emit('joinRoom', { appointmentId: appt, userId: id });
   }, [appointmentId, activeAppointmentId, myId, userIdLS]);
+
+  // Poll appointment status so closed/pending chats are read-only, and reopen on approval
+  useEffect(() => {
+    let timer;
+    const load = async () => {
+      try {
+        if (!appointmentId) return;
+        const r = await api.get(`/api/appointments/${appointmentId}`);
+        const st = r.data?.status || 'approved';
+        setAppointmentStatus(st);
+      } catch {}
+    };
+    load();
+    timer = setInterval(load, 5000);
+    return () => clearInterval(timer);
+  }, [appointmentId]);
 
   // Scroll to bottom when messages change (only if user is at bottom)
 useEffect(() => {
@@ -1050,6 +1067,14 @@ const doClearChat = () => {
         )}
         
         <form onSubmit={handleSendMessage} className="chat-input-form">
+          {(canSendProp === false || appointmentStatus !== 'approved') && (
+            <div className="chat-readonly-banner">
+              <i className="bi bi-info-circle me-2"></i>
+              {appointmentStatus === 'pending' && 'Appointment is pending approval. Messaging will unlock once approved.'}
+              {appointmentStatus === 'rejected' && 'This appointment was rejected. Start a new appointment to chat.'}
+              {appointmentStatus === 'closed' && 'This appointment is closed. Create a new appointment to continue the conversation.'}
+            </div>
+          )}
           <div className="input-wrapper">
             <input
               type="file"
@@ -1088,7 +1113,7 @@ const doClearChat = () => {
                     }
                   }
                 }}
-                disabled={sending || uploading}
+              disabled={sending || uploading || canSendProp === false || appointmentStatus !== 'approved'}
                 rows="1"
                 style={{ resize: 'none', overflow: 'hidden' }}
                 onInput={(e) => {
@@ -1110,7 +1135,7 @@ const doClearChat = () => {
             <button 
               type="submit" 
               className={`btn-send ${(newMessage.trim() || attachments.length > 0) ? 'active' : ''}`}
-              disabled={(!newMessage.trim() && attachments.length === 0) || sending || uploading}
+              disabled={(!newMessage.trim() && attachments.length === 0) || sending || uploading || canSendProp === false || appointmentStatus !== 'approved'}
               title="Send message"
             >
               {sending || uploading ? (
