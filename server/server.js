@@ -135,6 +135,9 @@ io.on('connection', (socket) => {
         .to(`${appointmentId}-${recipientId}`)
         .to(`${appointmentId}`)
         .emit('receiveMessage', message);
+
+      // Force other participant(s) to reload chat view as a fallback for realtime issues
+      socket.to(`${appointmentId}`).emit('reloadChat', { appointmentId });
     }
   });
 

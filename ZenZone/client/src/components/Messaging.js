@@ -299,6 +299,16 @@ const [chatSize, setChatSize] = useState(inOverlay ? 'large' : 'medium'); // sma
       }
     });
 
+    // Hard reload fallback: when server requests reload, refresh this page once
+    socketRef.current.on('reloadChat', (payload) => {
+      const appt = payload?.appointmentId;
+      if (!appt) return;
+      const isThisThread = appointmentId ? String(appointmentId) === String(appt) : true;
+      if (isThisThread) {
+        window.location.reload();
+      }
+    });
+
     // Typing indicators
     socketRef.current.on('userTyping', ({ userId: typingUserIdRemote, isTyping: typing }) => {
       const me = myId || userIdLS;
