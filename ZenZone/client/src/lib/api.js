@@ -1,16 +1,28 @@
 import axios from 'axios';
 
-// Determine API base:
-// - If REACT_APP_API_BASE_URL is set, use it
-// - If running on localhost without the env, use http://localhost:5000
-// - Otherwise use same-origin
+// Determine API base robustly across envs:
+// Priority: REACT_APP_API_BASE_URL -> window.API_BASE_URL -> inferred (localhost -> 5000, else same-origin)
 const inferredBase =
   typeof window !== 'undefined' && window.location.hostname === 'localhost'
     ? 'http://localhost:5000'
     : (typeof window !== 'undefined' ? window.location.origin : '');
 
 const runtimeBase = (typeof window !== 'undefined' && (window.API_BASE_URL || window.__API_BASE_URL__)) || '';
-const baseURL = process.env.REACT_APP_API_BASE_URL || runtimeBase || inferredBase;
+
+// Avoid leaking localhost in production: if host is not localhost, ignore any localhost base.
+const normalizeBase = (b) => {
+  if (!b) return b;
+  if (
+    typeof window !== 'undefined' &&
+    window.location.hostname !== 'localhost' &&
+    /^(https?:\/\/)?(localhost|127\.0\.0\.1)(:|\/|$)/i.test(b)
+  ) {
+    return window.location.origin;
+  }
+  return b;
+};
+
+const baseURL = normalizeBase(process.env.REACT_APP_API_BASE_URL || runtimeBase || inferredBase);
 
 export const api = axios.create({ baseURL });
 
