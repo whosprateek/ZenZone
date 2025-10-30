@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { api } from '../lib/api';
 import Messaging from './Messaging';
 import DashboardAnalytics from './DashboardAnalytics.jsx';
 import './PsychiatristDashboard.css';
@@ -36,10 +36,7 @@ function PsychiatristDashboard() {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/auth/me', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await api.get('/api/auth/me');
         setUserInfo(response.data);
       } catch (err) {
         console.log('Could not fetch user info:', err.message);
@@ -93,10 +90,7 @@ function PsychiatristDashboard() {
   const fetchAppointments = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/appointments/my-appointments', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await api.get('/api/appointments/my-appointments');
       
       // Anonymize appointment data for psychiatrist view
       const anonymizedAppointments = (response.data || []).map(appointment => 
@@ -151,10 +145,7 @@ function PsychiatristDashboard() {
   const handleApprove = async (appointmentId) => {
     setProcessingIds(prev => new Set([...prev, appointmentId]));
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.put(`http://localhost:5000/api/appointments/${appointmentId}`, { status: 'approved' }, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await api.put(`/api/appointments/${appointmentId}`, { status: 'approved' });
       
       setAppointments(prev => prev.map(app => 
         app._id === appointmentId ? { ...app, status: 'approved' } : app
@@ -178,10 +169,7 @@ function PsychiatristDashboard() {
   const handleReject = async (appointmentId) => {
     setProcessingIds(prev => new Set([...prev, appointmentId]));
     try {
-      const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/appointments/${appointmentId}`, { status: 'rejected' }, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await api.put(`/api/appointments/${appointmentId}`, { status: 'rejected' });
       
       setAppointments(prev => prev.map(app => 
         app._id === appointmentId ? { ...app, status: 'rejected' } : app
