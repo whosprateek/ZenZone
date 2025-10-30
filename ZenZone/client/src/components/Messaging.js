@@ -179,6 +179,11 @@ const [chatSize, setChatSize] = useState(inOverlay ? 'large' : 'medium'); // sma
     // Connection status handlers
     socketRef.current.on('connect', () => {
       setConnectionStatus('connected');
+      try {
+        const appt = appointmentId || activeAppointmentId;
+        const id = myId || userIdLS;
+        if (appt && id) socketRef.current.emit('joinRoom', { appointmentId: appt, userId: id });
+      } catch {}
     });
 
     socketRef.current.on('disconnect', () => {
@@ -302,6 +307,15 @@ const [chatSize, setChatSize] = useState(inOverlay ? 'large' : 'medium'); // sma
       }
     };
   }, [fetchMessages, appointmentId, myId, userIdLS]);
+
+  // Re-join room when appointment or myId changes (ensures live updates without refresh)
+  useEffect(() => {
+    const s = socketRef.current;
+    const appt = appointmentId || activeAppointmentId;
+    const id = myId || userIdLS;
+    if (!s || !s.connected || !appt || !id) return;
+    s.emit('joinRoom', { appointmentId: appt, userId: id });
+  }, [appointmentId, activeAppointmentId, myId, userIdLS]);
 
   // Scroll to bottom when messages change (only if user is at bottom)
 useEffect(() => {
